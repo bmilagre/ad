@@ -7,7 +7,7 @@ public class Task {
     private static final Logger LOGGER = LoggerFactory.getLogger(Task.class);
 
     private static int numberOfCounts = 0;
-    private static Long sleepTime = 5L;
+    private static final Long sleepTime = 5L;
 
     public static void main(String[] args) throws InterruptedException {
         task(1);
