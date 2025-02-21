@@ -36,7 +36,6 @@ public class Wagon implements TrainInterface {
         this.successorWagon = successorWagon;
     }
 
-    /* ToDo: Müssen diese auch ins UML? */
     @Override
     public final boolean equals(final Object object) {
         if (this == object) {
@@ -50,7 +49,6 @@ public class Wagon implements TrainInterface {
         return Objects.equals(this.identifier, wagon.getIdentifier()) && Objects.equals(this.numberOfPassengers, wagon.getNumberOfPassengers());
     }
 
-    /* ToDo: Müssen diese auch ins UML? */
     @Override
     public final int hashCode() {
         return Objects.hash(this.identifier, this.numberOfPassengers);

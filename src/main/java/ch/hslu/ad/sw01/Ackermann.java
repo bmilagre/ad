@@ -4,7 +4,6 @@ public class Ackermann {
     private int counter = 0;
 
     public static void main(String[] args) {
-        //Count how many calls on
         Ackermann ackermann = new Ackermann();
         ackermann.ack(2,2);
         System.out.println("Function was called: " + ackermann.counter + " times");

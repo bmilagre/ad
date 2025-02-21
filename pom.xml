@@ -45,7 +45,7 @@
     <developers>
         <developer>
             <id>${scm.developer.uid}</id>
-            <name>Ricardo Milagre</name>
+            <name>Bruuno Ricardo Milagre</name>
             <email>bruno.ricardomilagre@stud.hslu.ch</email>
             <organization>HSLU Informatik</organization>
             <roles>

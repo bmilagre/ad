@@ -4,8 +4,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public final class TrainSimulation {
-
-    /* ToDo: Müssen diese auch ins UML? */
     private static final Logger LOGGER = LoggerFactory.getLogger(TrainSimulation.class);
 
     public static void main(final String[] args) {
