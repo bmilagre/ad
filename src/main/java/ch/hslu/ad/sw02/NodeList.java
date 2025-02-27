@@ -1,0 +1,75 @@
+package ch.hslu.ad.sw02;
+
+/**
+ * linked list of type single (only head attr)
+ * @param <T> data type
+ */
+public class NodeList<T> {
+    private Node<T> head;
+
+    public void add(Node<T> node) {
+        if (head == null) {
+            head = node;
+        } else {
+            node.setNext(head);
+            this.head = node;
+        }
+    }
+
+    public int size() {
+        Node<T> currentPos = head;
+        int count = 0;
+
+        while (currentPos != null) {
+            currentPos = currentPos.getNext();
+            count++;
+        }
+
+        return count;
+    }
+
+    public boolean exists(final T value) {
+        Node<T> currentPos = head;
+
+        while (currentPos != null) {
+            if (currentPos.getValue() != null && currentPos.getValue().equals(value) ||
+                    value != null && value.equals(currentPos.getValue())) {
+                return true;
+            }
+
+            currentPos = currentPos.getNext();
+        }
+
+        return false;
+    }
+
+    public T getFirst() {
+        Node<T> oldHead = head;
+        this.head = oldHead.getNext();
+        return oldHead.getValue();
+    }
+
+    public Node<T> getHead() {
+        return this.head;
+    }
+
+    public void remove(final T value) {
+        if (head.getValue() == value) {
+            head = head.getNext();
+            return;
+        }
+
+        Node<T> currentPos = head;
+        Node<T> prevPos = null;
+
+        while (currentPos != null) {
+            if (currentPos.getValue() == value) {
+                prevPos.setNext(currentPos.getNext());
+                break;
+            }
+
+            prevPos = currentPos;
+            currentPos = currentPos.getNext();
+        }
+    }
+}

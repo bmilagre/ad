@@ -36,7 +36,7 @@ public class Task {
         Long endTime = System.currentTimeMillis();
         Long elapsedTime = endTime - startTime;
 
-        LOGGER.info("N="+ n + "-; number of Steps " + numberOfCounts + "; Elapsed Time: " + elapsedTime + "ms;");
+        LOGGER.info("N="+ n + "; number of Steps " + numberOfCounts + "; Elapsed Time: " + elapsedTime + "ms;");
     }
 
     public static void task1() throws InterruptedException {
