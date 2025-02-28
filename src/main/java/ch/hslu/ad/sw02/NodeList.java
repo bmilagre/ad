@@ -32,8 +32,7 @@ public class NodeList<T> {
         Node<T> currentPos = head;
 
         while (currentPos != null) {
-            if (currentPos.getValue() != null && currentPos.getValue().equals(value) ||
-                    value != null && value.equals(currentPos.getValue())) {
+            if (currentPos.getValue() == value) {
                 return true;
             }
 
