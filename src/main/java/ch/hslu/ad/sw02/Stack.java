@@ -1,16 +1,18 @@
 package ch.hslu.ad.sw02;
 
-import java.util.ArrayList;
-
+/**
+ * Implementation of a Singly Linked Lists
+ * @param <T>
+ */
 public class Stack<T> implements StackInterface<T> {
     private Object arr[];
     private int capacity;
     private int top;
 
     public Stack(int size) {
-        arr = new Object[size];
-        capacity = size;
-        top = -1;
+        this.arr = new Object[size];
+        this.capacity = size;
+        this.top = -1;
     }
 
     @Override
@@ -19,7 +21,7 @@ public class Stack<T> implements StackInterface<T> {
             throw new StackOverflowError("Stack is full");
         }
 
-        arr[++top] = value;
+        this.arr[++top] = value;
     }
 
     @Override
@@ -28,7 +30,7 @@ public class Stack<T> implements StackInterface<T> {
             throw new StackOverflowError("Stack is empty");
         }
 
-        return (T) arr[top--];
+        return (T) this.arr[top--];
     }
 
     @Override
