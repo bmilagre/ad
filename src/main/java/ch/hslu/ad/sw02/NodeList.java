@@ -4,7 +4,7 @@ package ch.hslu.ad.sw02;
  * linked list of type single (only head attr)
  * @param <T> data type
  */
-public class NodeList<T> {
+public final class NodeList<T> {
     private Node<T> head;
 
     public void add(Node<T> node) {
@@ -20,7 +20,7 @@ public class NodeList<T> {
         Node<T> currentPos = head;
         int count = 0;
 
-        while (currentPos != null) {
+        while(currentPos != null) {
             currentPos = currentPos.getNext();
             count++;
         }
@@ -52,6 +52,7 @@ public class NodeList<T> {
         return this.head;
     }
 
+    // ToDo: return 0 when empty
     public void remove(final T value) {
         if (head.getValue() == value) {
             head = head.getNext();

@@ -15,8 +15,8 @@ public class Queue<T> implements QueueInterface<T> {
 
     @Override
     public void enqueue(T element) {
-        if (isFull()) {
-            throw new IllegalStateException("Queue is full");
+        if (this.tail >= this.capacity) {
+            this.tail = 0;
         }
 
         this.arr[this.tail] = element;
@@ -29,8 +29,14 @@ public class Queue<T> implements QueueInterface<T> {
             return null;
         }
 
+        if(this.head >= this.capacity) {
+            this.head = 0;
+        }
+
         T element = (T) this.arr[this.head];
+        this.arr[this.head] = null;
         this.head++;
+
         return element;
     }
 

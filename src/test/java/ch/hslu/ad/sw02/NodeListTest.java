@@ -13,6 +13,14 @@ class NodeListTest {
     }
 
     @Test
+    void testIfListHasCorrectSize2() {
+        NodeList<Integer> list = new NodeList<>();
+        list.remove(0);
+
+        assertEquals(0, list.size());
+    }
+
+    @Test
     void testIfListHasCorrectSize() {
         NodeList<Integer> list = new NodeList<>();
         list.add(new Node<>(1));

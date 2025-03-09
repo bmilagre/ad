@@ -21,6 +21,12 @@ class StackTest {
     }
 
     @Test
+    void testIfStackHasOneElementWhenPushingInteger() {
+        Stack<Integer> stack2 = new Stack<>(5);
+        stack2.push(-25);
+        assertEquals(-25, stack2.pop());
+    }
+
     void testIfStackHasOneElementWhenPushing() {
         stack.push("Test");
         assertEquals(1, this.stack.size());
