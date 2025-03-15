@@ -6,25 +6,25 @@ public interface TreeNodeInterface<T> {
      * Returns the left node of the current node.
      * @return object of the left node.
      */
-    TreeNode getLeft();
+    TreeNode<T> getLeft();
 
     /**
      * Adds a node to the left side of the current node.
      * @param left node.
      */
-    void setLeft(TreeNode left);
+    void setLeft(TreeNode<T> left);
 
     /**
      * Returns the right node of the current node.
      * @return object of the right node.
      */
-    TreeNode getRight();
+    TreeNode<T> getRight();
 
     /**
      * Adds a node to the right side of the current node.
      * @param right node.
      */
-    void setRight(TreeNode right);
+    void setRight(TreeNode<T> right);
 
     /**
      * Returns the value of the node.
@@ -33,8 +33,14 @@ public interface TreeNodeInterface<T> {
     T getValue();
 
     /**
-     * Sets the value of an node
+     * Sets the value of a node
      * @param value
      */
-    void setValue(String value);
+    void setValue(T value);
+
+    /**
+     * Performs a mathematical operation
+     * @return result as integer
+     */
+    Integer eval();
 }

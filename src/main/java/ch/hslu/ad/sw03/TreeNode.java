@@ -1,16 +1,26 @@
 package ch.hslu.ad.sw03;
 
-public class TreeNode implements TreeNodeInterface {
-    private String value;
-    private TreeNode left;
-    private TreeNode right;
+public class TreeNode<T> implements TreeNodeInterface {
+    private T value;
+    private TreeNode<T> left;
+    private TreeNode<T> right;
 
-    public TreeNode(String value) {
+    public TreeNode(T value) {
         this.value = value;
     }
 
+    public TreeNode() {
+        this.value = null;
+    }
+
+    public TreeNode(T value, TreeNode<T> left, TreeNode<T> right) {
+        this.value = value;
+        this.left = left;
+        this.right = right;
+    }
+
     @Override
-    public TreeNode getLeft() {
+    public TreeNode<T> getLeft() {
         if (this.left != null) {
             return this.left;
         }
@@ -24,7 +34,7 @@ public class TreeNode implements TreeNodeInterface {
     }
 
     @Override
-    public TreeNode getRight() {
+    public TreeNode<T> getRight() {
         if (this.right != null) {
             return this.right;
         }
@@ -38,19 +48,24 @@ public class TreeNode implements TreeNodeInterface {
     }
 
     @Override
-    public String getValue() {
+    public T getValue() {
         return this.value;
     }
 
     @Override
-    public void setValue(String value) {
-        this.value = value;
+    public void setValue(Object value) {
+        this.value = (T) value;
+    }
+
+
+    public Integer eval() {
+        throw new UnsupportedOperationException("Basic TreeNode cannot perform operation");
     }
 
     @Override
     public String toString() {
-        String leftValue = (left != null) ? left.getValue().toString() : "null";
-        String rightValue = (right != null) ? right.getValue().toString() : "null";
+        String leftValue = (left != null && left.getValue() != null) ? left.getValue().toString() : "null";
+        String rightValue = (right != null && right.getValue() != null) ? right.getValue().toString() : "null";
 
         return "[TreeNode] value=" + value + ", left=" + leftValue + ", right=" + rightValue + "]";
     }

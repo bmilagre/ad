@@ -6,19 +6,19 @@ import org.slf4j.LoggerFactory;
 public class BinaryTree {
     private static final Logger LOG = LoggerFactory.getLogger(BinaryTree.class);
 
-    private TreeNode root;
+    private TreeNode<String> root;
 
     public static void main(String[] args) {
-        TreeNode root = new TreeNode("G");
-        TreeNode b = new TreeNode("B");
-        TreeNode a = new TreeNode("A");
-        TreeNode f = new TreeNode("F");
-        TreeNode e = new TreeNode("E");
-        TreeNode j = new TreeNode("J");
-        TreeNode h = new TreeNode("H");
-        TreeNode n = new TreeNode("N");
-        TreeNode m = new TreeNode("M");
-        TreeNode o = new TreeNode("O");
+        TreeNode root = new TreeNode<String>("G");
+        TreeNode b = new TreeNode<String>("B");
+        TreeNode a = new TreeNode<String>("A");
+        TreeNode f = new TreeNode<String>("F");
+        TreeNode e = new TreeNode<String>("E");
+        TreeNode j = new TreeNode<String>("J");
+        TreeNode h = new TreeNode<String>("H");
+        TreeNode n = new TreeNode<String>("N");
+        TreeNode m = new TreeNode<String>("M");
+        TreeNode o = new TreeNode<String>("O");
 
         root.setLeft(b);
         root.setRight(j);
@@ -40,11 +40,11 @@ public class BinaryTree {
     }
 
 
-    public BinaryTree(TreeNode root) {
+    public BinaryTree(TreeNode<String> root) {
         this.root = root;
     }
 
-    public TreeNode search(TreeNode node, String value) {
+    public TreeNode search(TreeNode<String> node, String value) {
         LOG.info(String.valueOf(node));
 
         if (node == null) {
@@ -55,11 +55,11 @@ public class BinaryTree {
             return node;
         }
 
-        if (value.compareTo(node.getValue()) < 0) {
+        if (value.compareTo(node.getValue().toString()) < 0) {
             return search(node.getLeft(), value);
         }
 
-        if (value.compareTo(node.getValue()) > 0) {
+        if (value.compareTo(node.getValue().toString()) > 0) {
             return search(node.getRight(), value);
         }
 
@@ -70,18 +70,18 @@ public class BinaryTree {
         this.root = insertRec(this.root, value);
     }
 
-    private TreeNode insertRec(TreeNode node, String value) {
+    private TreeNode insertRec(TreeNode<String> node, String value) {
         if (node == null) {
             return new TreeNode(value);
         }
 
         // Wenn der Wert kleiner ist, links einfügen
-        if (value.compareTo(node.getValue()) < 0) {
+        if (value.compareTo(node.getValue().toString()) < 0) {
             node.setLeft(insertRec(node.getLeft(), value));
         }
 
         // Wenn der Wert größer ist, rechts einfügen
-        if (value.compareTo(node.getValue()) > 0) {
+        if (value.compareTo(node.getValue().toString()) > 0) {
             node.setRight(insertRec(node.getRight(), value));
         }
 
@@ -92,7 +92,7 @@ public class BinaryTree {
         inorderTraversalRec(this.root);
     }
 
-    private void inorderTraversalRec(TreeNode node) {
+    private void inorderTraversalRec(TreeNode<String> node) {
         if (node != null) {
             // Zuerst linker Teilbaum
             inorderTraversalRec(node.getLeft());

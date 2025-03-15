@@ -18,6 +18,7 @@ public final class Node<T> {
         return this.value;
     }
 
+
     public void setValue(final T value) {
         this.value = value;
     }
