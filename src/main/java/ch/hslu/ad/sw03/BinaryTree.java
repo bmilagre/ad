@@ -33,7 +33,7 @@ public class BinaryTree {
         BinaryTree tree = new BinaryTree(root);
         tree.search(root, "E");
         LOG.info("------");
-        tree.insert(root, "Z");
+        tree.insert("Z");
         tree.search(root, "Z");
         LOG.info("Inorder Traversierung:");
         tree.inorderTraversal();
@@ -66,8 +66,8 @@ public class BinaryTree {
         return null;
     }
 
-    public void insert(TreeNode node, String value) {
-        this.root = insertRec(node, value);
+    public void insert(String value) {
+        this.root = insertRec(this.root, value);
     }
 
     private TreeNode insertRec(TreeNode node, String value) {

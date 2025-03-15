@@ -55,7 +55,7 @@ class BinaryTreeTest {
 
     @Test
     void testInsertNewValue() {
-        tree.insert(root, "C");
+        tree.insert("C");
         TreeNode result = tree.search(root, "C");
         assertNotNull(result);
         assertEquals("C", result.getValue());
@@ -63,7 +63,7 @@ class BinaryTreeTest {
 
     @Test
     void testInsertExistingValue() {
-        tree.insert(root, "E");
+        tree.insert("E");
         TreeNode result = tree.search(root, "E");
         assertNotNull(result);
         assertEquals("E", result.getValue());
