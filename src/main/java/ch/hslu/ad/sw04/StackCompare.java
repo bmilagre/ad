@@ -11,13 +11,14 @@ public class StackCompare {
     private static final Logger LOG = LoggerFactory.getLogger(StackCompare.class);
 
     public static void main(String[] args) {
-        Integer[] batchSizes = {100000, 1000000, 100000000};
-        String[] sampleData = getSampleData(100000);
+        Integer[] batchSizes = {100000, 1000000, 10000000};
 
         LOG.info("Starting with test cases");
         LOG.info("_________________________");
 
         for(Integer batchSize : batchSizes) {
+            String[] sampleData = getSampleData(batchSize);
+
             LOG.info("Testing with size: " + batchSize);
             LOG.info("Result of JavaStack: " + testJavaStack(batchSize, sampleData) + "ms;");
             LOG.info("Result of CustomStack: " + testCustomStack(batchSize, sampleData) + "ms;");
