@@ -52,7 +52,7 @@ public final class Ball implements Runnable {
                 Thread.sleep(1000);
 
                 while(this.circle.getY() < 400) {
-                    this.circle.moveVertical(random.nextInt(20));
+                    this.circle.slowMoveVertical(random.nextInt(20));
                 }
             } catch (InterruptedException e) {
                 Thread.currentThread().interrupt();

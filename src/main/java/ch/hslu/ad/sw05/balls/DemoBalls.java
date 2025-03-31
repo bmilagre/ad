@@ -39,7 +39,7 @@ public final class DemoBalls {
         Canvas canvas = Canvas.getCanvas();
         Random random = new Random();
 
-        for(int i = 0; i < 50; i++) {
+        for(int i = 0; i < 500; i++) {
             int randomColorIndex = random.nextInt(color.length);
             int randomXCoordinate = random.nextInt(600);
             int randomYCoordinate = random.nextInt(10);
