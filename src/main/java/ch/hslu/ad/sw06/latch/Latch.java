@@ -40,9 +40,8 @@ public final class Latch implements Synch {
 
     @Override
     public void release() {
-        this.signal = true;
-
         synchronized (this) {
+            this.signal = true;
             notifyAll();
         }
     }

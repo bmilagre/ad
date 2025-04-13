@@ -13,15 +13,17 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package ch.hslu.ad.sw05.bank;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+package ch.hslu.ad.sw07.bank;
 
 import java.util.ArrayList;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+
+import org.slf4j.LoggerFactory;
+import org.slf4j.Logger;
 
 /**
- * Demonstration der Bankgeschäfte - Aufgabe 2 - N1_EX_ThreadsSynch.
+ * Demonstration der Bankgeschäfte - Aufgabe 4 - N3_EX_WeiterführendeKonzepte.
  */
 public final class DemoBankAccount {
 
@@ -34,18 +36,6 @@ public final class DemoBankAccount {
     }
 
     /**
-     * Wartet bis alle Threads abgearbeitet sind.
-     *
-     * @param threads Array mit Threads.
-     * @throws InterruptedException Interupted.
-     */
-    private static void waitForCompletion(final Thread[] threads) throws InterruptedException {
-        for (final Thread thread : threads) {
-            thread.join();
-        }
-    }
-
-    /**
      * Main-Demo.
      *
      * @param args not used.
@@ -55,40 +45,35 @@ public final class DemoBankAccount {
         int numRuns = 5;
         long totalTime = 0;
 
-        for (int i = 0; i <= numRuns; i++) {
-
+        for(int i = 0; i <= numRuns; i++) {
             final ArrayList<BankAccount> source = new ArrayList<>();
             final ArrayList<BankAccount> target = new ArrayList<>();
-            final int amount = 100_000;
+            final int amount = 100000;
             final int number = 5;
 
             long startTime = System.nanoTime();
 
-            for (int z = 0; i < number; z++) {
+            for (int z = 0; z < number; z++) {
                 source.add(new BankAccount(amount));
                 target.add(new BankAccount());
             }
-            final Thread[] threads = new Thread[number * 2];
-            for (int h = 0; h < number; h++) {
-                threads[h] = new Thread(new AccountTask(source.get(h), target.get(h), amount));
-                threads[h + number] = new Thread(new AccountTask(target.get(h), source.get(h), amount));
+            // Account Tasks starten...
+            try (final ExecutorService executor = Executors.newCachedThreadPool()) {
+                for (int h = 0; h < number; h++) {
+                    executor.submit(new AccountTask(source.get(h), target.get(h), amount));
+                }
+                executor.shutdown();
             }
-            for (final Thread thread : threads) {
-                thread.start();
-            }
-            waitForCompletion(threads);
 
             long endTime = System.nanoTime();
 
-            LOG.info("Bank accounts after transfers");
-            for (int y = 0; y < number; y++) {
-                LOG.info("source({}) = {}; target({}) = {};", y, source.get(y).getBalance(), y, target.get(y).getBalance());
-            }
-            if (i >= 1) {
+            if(i >= 1){
                 LOG.info("Bank accounts after transfers");
                 LOG.info("Attempt #{} Duration: {} ms", i, (endTime - startTime) / 1000000L);
                 totalTime += (endTime - startTime) / 1000000L;
             }
         }
+
+        LOG.info("Average Duration: {} ms", totalTime / numRuns);
     }
 }
