@@ -13,8 +13,8 @@ public class BubbleSort {
 
     public static void main(String[] args) {
         BubbleSort sorter = new BubbleSort();
-        //int[] sizes = {10, 100000, 200000, 400000};
-        int[] sizes = {10};
+        int[] sizes = {10, 100000, 200000, 400000};
+        //int[] sizes = {10};
 
         for (int size : sizes) {
             int[] numbersShuffle = getShuffledNumbers(size);
@@ -38,22 +38,29 @@ public class BubbleSort {
 
     public static long sortWithComparisons(final int[] a) {
         long numbOfComparisons = 0;
-        int n;
+        boolean swapped;
 
         for (int i = 0; i < a.length - 1; i++) {
-            if(a[i] < a[i + 1]){
-                continue;
+            swapped = false;
+
+            for (int j = 0; j < a.length - 1 - i; j++) {
+                numbOfComparisons++;
+
+                if (a[j] > a[j + 1]) {
+                    int temp = a[j];
+                    a[j] = a[j + 1];
+                    a[j + 1] = temp;
+                    swapped = true;
+
+                    if (GUI) {
+                        SortingAnimation.instance().showArray(a, 30);
+                    }
+                }
             }
 
-            n = a[i];
-            a[i] = a[i + 1];
-            a[i + 1] = n;
-
-            if (GUI) {
-                SortingAnimation.instance().showArray(a, 30);
+            if (!swapped) {
+                break;
             }
-
-            numbOfComparisons += sortWithComparisons(a);
         }
 
         return numbOfComparisons;

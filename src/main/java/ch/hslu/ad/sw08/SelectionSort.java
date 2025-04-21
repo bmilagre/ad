@@ -13,8 +13,8 @@ public class SelectionSort {
 
     public static void main(String[] args) {
         SelectionSort sorter = new SelectionSort();
-        //int[] sizes = {10, 100000, 200000, 400000};
-        int[] sizes = {10};
+        int[] sizes = {10, 100000, 200000, 400000};
+        //int[] sizes = {10};
 
         for (int size : sizes) {
             int[] numbersShuffle = getShuffledNumbers(size);

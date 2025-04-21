@@ -13,6 +13,7 @@ public class InsertionSort {
     public static void main(String[] args) {
         InsertionSort sorter = new InsertionSort();
         int[] sizes = {10, 100000, 200000, 400000};
+        //int[] sizes = {10};
 
         for (int size : sizes) {
             int[] numbersShuffle = getShuffledNumbers(size);
