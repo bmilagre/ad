@@ -1,20 +1,19 @@
-package ch.hslu.ad.sw08;
+package ch.hslu.ad.sw09;
 
-import ch.hslu.ad.sw07.bank.DemoBankAccount;
 import ch.hslu.ad.sw08.animation.SortingAnimation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import static ch.hslu.ad.sw08.SortingMain.*;
+import static ch.hslu.ad.sw09.SortingMain.*;
 
-public class SelectionSort {
-    private static final Logger LOG = LoggerFactory.getLogger(InsertionSort.class);
+public class QuickSort {
+    private static final Logger LOG = LoggerFactory.getLogger(QuickSort.class);
     private static final boolean GUI = false;
+    private static long comparisons;
 
     public static void main(String[] args) {
-        SelectionSort sorter = new SelectionSort();
-        int[] sizes = {100000, 200000, 400000};
-        //int[] sizes = {10};
+        QuickSort sorter = new QuickSort();
+        int[] sizes = {1000000, 2000000, 4000000};
 
         for (int size : sizes) {
             int[] numbersShuffle = getShuffledNumbers(size);
@@ -32,49 +31,59 @@ public class SelectionSort {
     }
 
     public static int[] sort(final int[] a) {
-        sortWithComparisons(a);
+        comparisons = 0;
+        quicksort(a, 0, a.length - 1);
         return a;
     }
 
     public static long sortWithComparisons(final int[] a) {
-        long numbOfComparisons = 0;
-        int length = a.length;
+        comparisons = 0;
+        quicksort(a, 0, a.length - 1);
+        return comparisons;
+    }
 
-        for (int i = 0; i < length - 1; i++) {
-            // Search the smallest element in the remaining array
-            int minPos = i;
-            int min = a[minPos];
-            for (int j = i + 1; j < length; j++) {
-                if (a[j] < min) {
-                    minPos = j;
-                    min = a[minPos];
+    private static int[] quicksort(int[] a, int start, int end) {
+        if (start < end) {
+            comparisons++;
+            int p = partition(a, start, end);
+            quicksort(a, start, p - 1);
+            quicksort(a, p + 1, end);
+        }
+        return a;
+    }
 
-                    if (GUI) {
-                        SortingAnimation.instance().showArray(a, 30);
-                    }
-                }
+    private static int partition(int[] a, int start, int end) {
+        int pivot = a[end];
+        int i = start - 1;
 
-                numbOfComparisons++;
-            }
+        for (int j = start; j < end; j++) {
+            comparisons++;
+            if (a[j] <= pivot) {
+                i++;
 
-            // Swap min with element at pos i
-            if (minPos != i) {
-                a[minPos] = a[i];
-                a[i] = min;
+                int swapTemp = a[i];
+                a[i] = a[j];
+                a[j] = swapTemp;
 
                 if (GUI) {
                     SortingAnimation.instance().showArray(a, 30);
                 }
             }
-
-            numbOfComparisons++;
         }
 
-        return numbOfComparisons;
+        int swapTemp = a[i + 1];
+        a[i + 1] = a[end];
+        a[end] = swapTemp;
+
+        if (GUI) {
+            SortingAnimation.instance().showArray(a, 30);
+        }
+
+        return i + 1;
     }
 
     private long[] measureTimeOfSorting(final int[] a) {
-        long totalTime = 0;
+        long totalTimeNanos = 0;
         long totalComparisons = 0;
         int numRuns = 5;
 
@@ -82,15 +91,20 @@ public class SelectionSort {
             int[] numbers = a.clone();
 
             long startTime = System.nanoTime();
-            long comparisons = sortWithComparisons(numbers);
+            long comparisonsPerRun = sortWithComparisons(numbers);
             long endTime = System.nanoTime();
 
             if (i != 0) {
-                totalTime += (endTime - startTime) / 1000000L;
-                totalComparisons += comparisons;
+                totalTimeNanos += (endTime - startTime);
+                totalComparisons += comparisonsPerRun;
             }
         }
 
-        return new long[]{totalTime / (numRuns - 1), totalComparisons / (numRuns - 1)};
+        return new long[]{
+                totalTimeNanos / (numRuns - 1) / 1000000L,
+                totalComparisons / (numRuns - 1)
+        };
     }
+
+
 }

@@ -44,6 +44,8 @@ public class InsertionSort {
             element = a[i];
             j = i; // index where already sorted
 
+            numbOfComparisons++;
+
             while ((j > 0) && (a[j - 1] > element)) {
                 a[j] = a[j - 1]; // shift right
                 j--;            // shift right

@@ -9,12 +9,12 @@ import static ch.hslu.ad.sw08.SortingMain.*;
 
 public class BubbleSort {
     private static final Logger LOG = LoggerFactory.getLogger(InsertionSort.class);
-    private static final boolean GUI = true;
+    private static final boolean GUI = false;
 
     public static void main(String[] args) {
         BubbleSort sorter = new BubbleSort();
-        int[] sizes = {10, 100000, 200000, 400000};
-        //int[] sizes = {10};
+        int[] sizes = {10000, 20000, 40000};
+        //int[] sizes = {50};
 
         for (int size : sizes) {
             int[] numbersShuffle = getShuffledNumbers(size);
