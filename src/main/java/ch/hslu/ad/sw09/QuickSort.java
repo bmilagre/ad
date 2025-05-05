@@ -13,7 +13,7 @@ public class QuickSort {
 
     public static void main(String[] args) {
         QuickSort sorter = new QuickSort();
-        int[] sizes = {1000000, 2000000, 4000000};
+        int[] sizes = {10000, 30000, 60000};
 
         for (int size : sizes) {
             int[] numbersShuffle = getShuffledNumbers(size);
