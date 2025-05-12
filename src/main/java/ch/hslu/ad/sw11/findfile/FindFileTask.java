@@ -15,6 +15,9 @@
  */
 package ch.hslu.ad.sw11.findfile;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.io.File;
 import java.util.concurrent.CountedCompleter;
 import java.util.concurrent.atomic.AtomicReference;
@@ -24,6 +27,8 @@ import java.util.concurrent.atomic.AtomicReference;
  */
 @SuppressWarnings("serial")
 public final class FindFileTask extends CountedCompleter<String> {
+
+    private static final Logger LOG = LoggerFactory.getLogger(FindFileTask.class);
 
     /**
      * Name des gesuchten Files.
@@ -42,26 +47,41 @@ public final class FindFileTask extends CountedCompleter<String> {
      * Erzeugt eine File-Such-Aufgabe.
      *
      * @param regex Ausdruck der den Filenamen enthält.
-     * @param dir Verzeichnis in dem das File gesucht wird.
+     * @param dir   Verzeichnis in dem das File gesucht wird.
      */
     public FindFileTask(String regex, File dir) {
         this(null, regex, dir, new AtomicReference<>(null));
     }
 
-    private FindFileTask(final CountedCompleter<?> parent, final String regex, final File dir,
-            final AtomicReference<String> result) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    private FindFileTask(final CountedCompleter<?> parent, final String regex, final File dir, final AtomicReference<String> result) {
+        super(parent);
+        this.dir = dir;
+        this.regex = regex;
+        this.result = result;
     }
 
     @Override
     public void compute() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        final File[] list = dir.listFiles();
+
+        if (list != null) {
+            for (File file : list) {
+                if (file.isDirectory()) {
+                    new FindFileTask(this, this.regex, file, this.result).fork();
+                } else if (regex.equalsIgnoreCase(file.getName())) {
+                    result.compareAndSet(null, file.getParentFile().toString());
+                    this.quietlyCompleteRoot();
+                }
+            }
+        }
+
+        this.tryComplete();
     }
 
     @Override
     public String getRawResult() {
         if (result != null) {
-            return result.get();
+            return "Found in: " + result.get();
         }
         return null;
     }

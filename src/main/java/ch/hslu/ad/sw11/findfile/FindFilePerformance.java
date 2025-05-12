@@ -16,6 +16,7 @@
 package ch.hslu.ad.sw11.findfile;
 
 import java.io.File;
+
 import org.slf4j.LoggerFactory;
 import org.slf4j.Logger;
 
@@ -38,8 +39,8 @@ public final class FindFilePerformance {
      * @param args not used.
      */
     public static void main(String[] args) {
-        final String search = "find.me";
-        final File rootDir = new File(System.getProperty("user.home"));
+        final String search = "backupCodes.pdf";
+        final File rootDir = new File(System.getProperty("user.home")  + File.separator +"Desktop");
         LOG.info("Start searching '{}' recurive in '{}'", search, rootDir);
         FindFile.findFile(search, rootDir);
         LOG.info("Found in {} msec.", '?');

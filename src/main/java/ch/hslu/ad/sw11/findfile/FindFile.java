@@ -16,6 +16,7 @@
 package ch.hslu.ad.sw11.findfile;
 
 import java.io.File;
+
 import org.slf4j.LoggerFactory;
 import org.slf4j.Logger;
 
@@ -31,12 +32,12 @@ public final class FindFile {
      */
     private FindFile() {
     }
-    
+
     /**
      * Sucht ein File in einem Verzeichnis.
      *
      * @param name Name des Files.
-     * @param dir Verzeichnis.
+     * @param dir  Verzeichnis.
      */
     public static void findFile(final String name, final File dir) {
         final File[] list = dir.listFiles();
